@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
 
-[Serializable]
-public partial class RPSPlay : MonoBehaviour
+public class RpsPlay
 {
     
-    public CharacterInfo player;
-    public CharacterInfo npc;
+    public CharacterInfo Player;
+    public CharacterInfo Npc;
 
     public string ScoreString(Enums.Score score)
     {
+        // Debug.Log($"player : {player.State}");
+        // Debug.Log($"npc : {npc.State}");
+        
         switch (score)
         {
             case Enums.Score.Win:
@@ -30,16 +32,16 @@ public partial class RPSPlay : MonoBehaviour
         switch (score)
         {
             case Enums.Score.Win:
-                player.Scores.Add(Enums.Score.Win);
-                npc.Scores.Add(Enums.Score.Loss);
+                Player.Scores.Add(Enums.Score.Win);
+                Npc.Scores.Add(Enums.Score.Loss);
                 break;
             case Enums.Score.Loss:
-                player.Scores.Add(Enums.Score.Loss);
-                npc.Scores.Add(Enums.Score.Win);
+                Player.Scores.Add(Enums.Score.Loss);
+                Npc.Scores.Add(Enums.Score.Win);
                 break;
             case Enums.Score.Draw:
-                player.Scores.Add(Enums.Score.Draw);
-                npc.Scores.Add(Enums.Score.Draw);
+                Player.Scores.Add(Enums.Score.Draw);
+                Npc.Scores.Add(Enums.Score.Draw);
                 break;
             case Enums.Score.WrongAnswer:
                 break;
@@ -50,15 +52,15 @@ public partial class RPSPlay : MonoBehaviour
     
     public Enums.Score CheckResult()
     {
-        if(player == npc) return Enums.Score.Draw;
-        switch (player.State)
+        if(Player.State == Npc.State) return Enums.Score.Draw;
+        switch (Player.State)
         {
             case Enums.RpsState.Rock:
-                return npc.State == Enums.RpsState.Paper ? Enums.Score.Loss : Enums.Score.Win;
+                return Npc.State == Enums.RpsState.Scissors ? Enums.Score.Win : Enums.Score.Loss;
             case Enums.RpsState.Paper:
-                return npc.State == Enums.RpsState.Scissors ? Enums.Score.Win : Enums.Score.Loss;
+                return Npc.State == Enums.RpsState.Rock ? Enums.Score.Win : Enums.Score.Loss;
             case Enums.RpsState.Scissors :
-                return npc.State == Enums.RpsState.Paper ? Enums.Score.Win : Enums.Score.Loss;
+                return Npc.State == Enums.RpsState.Paper ? Enums.Score.Win : Enums.Score.Loss;
             case Enums.RpsState.WrongAnswer:
             default:
                 return Enums.Score.WrongAnswer;
@@ -66,17 +68,5 @@ public partial class RPSPlay : MonoBehaviour
 
     }
     
-    public string Play()
-    {
-        var random = new Random();
-        var randomValue = random.Next(0, 2);
-        
-        npc.State = (Enums.RpsState)randomValue;
 
-        var result = CheckResult();
-        
-        ScoreSave(result);
-        
-        return ScoreString(result);
-    }
 }

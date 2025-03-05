@@ -6,19 +6,19 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public class CharacterInfo
 {
-    private Enums.RpsState state = Enums.RpsState.WrongAnswer;
-    private List<Enums.Score> scores = new();
+    private Enums.RpsState _state = Enums.RpsState.WrongAnswer;
+    private List<Enums.Score> _scores = new();
 
     public Enums.RpsState State
     {
-        get => state;
-        set => state = value;
+        get => _state;
+        set => _state = value;
     }
 
     public List<Enums.Score> Scores
     {
-        get => scores;
-        set => scores = value;
+        get => _scores;
+        set => _scores = value;
     }
     
     

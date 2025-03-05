@@ -4,31 +4,77 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Windows;
-
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public UIManager uiManager;
+
     
-    IEnumerator Count(int count)
+    public RpsPlay RpsPlay;
+
+
+
+    private string OneTime()
     {
-        for (var i = 0; i < count; i++)
+        var random = new Random();
+        var randomValue = (Enums.RpsState)random.Next(0, 2);
+
+        // var randomValue = Enums.RpsState.Rock;
+        
+        RpsPlay.Npc.State = randomValue;
+        uiManager.npcText.text = uiManager.FindHand(randomValue);
+
+        var result = RpsPlay.CheckResult();
+        
+        RpsPlay.ScoreSave(result);
+        
+        return RpsPlay.ScoreString(result);
+    }
+    
+    IEnumerator Stop()
+    {
+        
+        uiManager.lobbyCanvasOnOff(false);
+        uiManager.PlayTextCanvasOnOff(true);
+        uiManager.playerButtonCanvasOnOff(true);
+        for (var i = 3; i >= 0; i--)
         {
-            Debug.Log(i+1);
+            uiManager.npcText.text = i.ToString();
+            yield return new WaitForSeconds(i * 1.0f);
         }
         
-        yield return null;
+        uiManager.playerButtonCanvasOnOff(false);
+        yield return new WaitForSeconds(1.0f);
+        var tmp = OneTime();
+        uiManager.SetResultText(tmp);
+        yield return new WaitForSeconds(1.0f);
+        uiManager.playerButtonCanvasOnOff(false);
+        uiManager.PlayTextCanvasOnOff(false);
+        uiManager.lobbyCanvasOnOff(true);
     }
+
+    public void Play()
+    {
+        
+        StartCoroutine(Stop());
+    }
+    
     void Start()
     {
-        RPSPlay rspPlay = new()
-        {
-            player = new CharacterInfo(),
-            npc = new CharacterInfo()
-        };
+        RpsPlay = new RpsPlay();
+        RpsPlay.Npc = new CharacterInfo();
+        RpsPlay.Player = new CharacterInfo();
+      
 
-        StartCoroutine(Count(5));
-        Debug.Log(rspPlay.Play());
+       uiManager.playerButtonCanvasOnOff(false);
+       uiManager.PlayTextCanvasOnOff(false);
+       uiManager.lobbyCanvasOnOff(true);
+        // Debug.Log(rpsPlay.player.State);
+        
+        
     }
 
     // Update is called once per frame
