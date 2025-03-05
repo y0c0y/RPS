@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class CharacterInfo
 {
     private Enums.RpsState _state = Enums.RpsState.WrongAnswer;
-    private List<Enums.Score> _scores = new();
+    private UserData _scores;
 
     public Enums.RpsState State
     {
@@ -15,7 +15,7 @@ public class CharacterInfo
         set => _state = value;
     }
 
-    public List<Enums.Score> Scores
+    public UserData Scores
     {
         get => _scores;
         set => _scores = value;

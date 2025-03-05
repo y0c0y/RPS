@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    public DataManager dataManager;
     public UIManager uiManager;
     public RpsPlay RpsPlay;
 
@@ -25,7 +26,8 @@ public class GameManager : MonoBehaviour
 
         var result = RpsPlay.CheckResult();
         
-        RpsPlay.ScoreSave(result);
+        // UserData tmp = RpsPlay.ScoreUpdate(result, RpsPlay.Player.Scores);
+        // dataManager.JsonSave(tmp);
         
         return RpsPlay.ScoreString(result);
     }
@@ -50,15 +52,18 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
+        // RpsPlay.Player.Scores = dataManager.JsonLoad();
         StartCoroutine(Stop());
     }
     
     void Start()
     {
-        RpsPlay = new RpsPlay();
-        RpsPlay.Npc = new CharacterInfo();
-        RpsPlay.Player = new CharacterInfo();
-        
+        RpsPlay = new RpsPlay
+        {
+            Npc = new CharacterInfo(),
+            Player = new CharacterInfo()
+        };
+
         uiManager.SetStartCanvas();
        
         // Debug.Log(rpsPlay.player.State);
