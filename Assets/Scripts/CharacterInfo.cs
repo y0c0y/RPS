@@ -21,5 +21,4 @@ public class CharacterInfo
         set => _scores = value;
     }
     
-    
 }

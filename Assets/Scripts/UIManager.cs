@@ -33,13 +33,13 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        Debug.Log("OnClickPlayButton");
+        // Debug.Log("OnClickPlayButton");
         gameManager.Play();
     }
 
     public void OnClickQuitButton()
     {
-        Debug.Log("OnClickQuitButton");
+        // Debug.Log("OnClickQuitButton");
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
     public void playerButtonCanvasOnOff(bool isOn)
     {
         playerButtonCanvas.enabled = isOn;
-        Debug.Log(playerButtonCanvas.enabled);
+        // Debug.Log(playerButtonCanvas.enabled);
 
         
     }
@@ -91,6 +91,19 @@ public class UIManager : MonoBehaviour
         playerText.text = "";
         resultText.text = "";
         playTextCanvas.enabled = isOn;
-        
+    }
+
+    public void SetStartCanvas()
+    {
+        playerButtonCanvasOnOff(false);
+        PlayTextCanvasOnOff(false);
+        lobbyCanvasOnOff(true);
+    }
+    
+    public void SetDuringGameCanvas()
+    {
+        lobbyCanvasOnOff(false);
+        PlayTextCanvasOnOff(true);
+        playerButtonCanvasOnOff(true);
     }
 }

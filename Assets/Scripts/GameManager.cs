@@ -11,11 +11,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public UIManager uiManager;
-
-    
     public RpsPlay RpsPlay;
-
-
 
     private string OneTime()
     {
@@ -36,10 +32,8 @@ public class GameManager : MonoBehaviour
     
     IEnumerator Stop()
     {
-        
-        uiManager.lobbyCanvasOnOff(false);
-        uiManager.PlayTextCanvasOnOff(true);
-        uiManager.playerButtonCanvasOnOff(true);
+
+        uiManager.SetDuringGameCanvas();
         for (var i = 3; i >= 0; i--)
         {
             uiManager.npcText.text = i.ToString();
@@ -51,14 +45,11 @@ public class GameManager : MonoBehaviour
         var tmp = OneTime();
         uiManager.SetResultText(tmp);
         yield return new WaitForSeconds(1.0f);
-        uiManager.playerButtonCanvasOnOff(false);
-        uiManager.PlayTextCanvasOnOff(false);
-        uiManager.lobbyCanvasOnOff(true);
+        uiManager.SetStartCanvas();
     }
 
     public void Play()
     {
-        
         StartCoroutine(Stop());
     }
     
@@ -67,19 +58,11 @@ public class GameManager : MonoBehaviour
         RpsPlay = new RpsPlay();
         RpsPlay.Npc = new CharacterInfo();
         RpsPlay.Player = new CharacterInfo();
-      
-
-       uiManager.playerButtonCanvasOnOff(false);
-       uiManager.PlayTextCanvasOnOff(false);
-       uiManager.lobbyCanvasOnOff(true);
+        
+        uiManager.SetStartCanvas();
+       
         // Debug.Log(rpsPlay.player.State);
         
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }
