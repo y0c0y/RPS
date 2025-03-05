@@ -4,29 +4,24 @@ using UnityEngine.Serialization;
 using Random = System.Random;
 
 [Serializable]
-public class RPSPlay : MonoBehaviour
+public partial class RPSPlay : MonoBehaviour
 {
     
     public CharacterInfo player;
     public CharacterInfo npc;
-    
-    private const string WinString = "이겼습니다";
-    private const string LoseString = "졌습니다.";
-    private const string DrawString = "비겼습니다.";
-    private const string WrongString = "잘못된 결과입니다";
-    
+
     public string ScoreString(Enums.Score score)
     {
         switch (score)
         {
             case Enums.Score.Win:
-                return WinString;
+                return TextData.WinString;
             case Enums.Score.Loss:
-                return LoseString;
+                return TextData.LoseString;
             case Enums.Score.Draw:
-                return DrawString;
+                return TextData.DrawString;
             default:
-                return WrongString;
+                return TextData.WrongString;
         }
     }
     
