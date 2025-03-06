@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.U2D;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +18,49 @@ public class UIManager : MonoBehaviour
     public Canvas lobbyCanvas;
     // public Canvas resultCanvas;
     public Canvas playTextCanvas;
+    
+    public Texture rockTexture;
+    public Texture paperTexture;
+    public Texture scissorsTexture;
+    
+    public Transform npcTransform;
+    public Transform playerTransform;
+
+    public RawImage npcImage;
+    public RawImage playerImage;
+
+
+    public void ResetImage()
+    {
+        npcImage.texture = null;
+        playerImage.texture = null;
+
+        npcImage.enabled = false;
+        playerImage.enabled = false;
+    }
+    
+    
+    public void SetImage(RawImage image, Enums.RpsState state)
+    {
+        if (!image) { image = GetComponent<RawImage>(); }
+        if(!image.enabled) { image.enabled = true; }
+
+        switch (state)
+        {
+            case Enums.RpsState.Rock:
+                image.texture = rockTexture;
+                break;
+            case Enums.RpsState.Paper:
+                image.texture = paperTexture;
+                break;
+            case Enums.RpsState.Scissors:
+                image.texture = scissorsTexture;
+                break;
+        }
+        
+        // Debug.Log(image.texture);
+    }
+
     public string FindHand(Enums.RpsState state)
     {
         switch (state)
@@ -56,23 +100,30 @@ public class UIManager : MonoBehaviour
     
     public void OnClickRock()
     {
-        playerText.text = TextData.Rock;
-        gameManager.RpsPlay.Player.State = Enums.RpsState.Rock;
-        // Debug.Log(gameManager.rspPlay.player.State);
+        SetPlayerChoice(Enums.RpsState.Rock);
     }
 
     public void OnClickPaper()
     {
-        playerText.text = TextData.Paper;
-        gameManager.RpsPlay.Player.State = Enums.RpsState.Paper;
-        // Debug.Log(gameManager.rspPlay.player.State);
+        SetPlayerChoice(Enums.RpsState.Paper);
     }
 
     public void OnClickScissors()
     {
-        playerText.text = TextData.Scissors;
-        gameManager.RpsPlay.Player.State = Enums.RpsState.Scissors;
-        // Debug.Log(gameManager.rspPlay.player.State);
+        SetPlayerChoice(Enums.RpsState.Scissors);
+    }
+    
+    public void SetNpcChoice(Enums.RpsState state)
+    {
+        SetImage(npcImage,state);
+        gameManager.RpsPlay.Npc.State = state;
+    }
+
+
+    private void SetPlayerChoice(Enums.RpsState state)
+    {
+        SetImage(playerImage,state);
+        gameManager.RpsPlay.Player.State = state;
     }
 
     public void SetResultText(string text)
@@ -94,15 +145,14 @@ public class UIManager : MonoBehaviour
     }
     public void PlayTextCanvasOnOff(bool isOn)
     {
-        // Debug.Log(isOn);
-        npcText.text = "";
-        playerText.text = "";
         resultText.text = "";
         playTextCanvas.enabled = isOn;
     }
 
     public void SetStartCanvas()
     {
+        if(playerImage && npcImage) ResetImage();
+        
         playerButtonCanvasOnOff(false);
         PlayTextCanvasOnOff(false);
         lobbyCanvasOnOff(true);

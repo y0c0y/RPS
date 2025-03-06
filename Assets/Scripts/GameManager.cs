@@ -3,6 +3,7 @@ using UnityEngine.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 using Random = System.Random;
 
@@ -19,11 +20,8 @@ public class GameManager : MonoBehaviour
         var random = new Random();
         var randomValue = (Enums.RpsState)random.Next(0, 2);
 
-        // var randomValue = Enums.RpsState.Rock;
+        uiManager.SetNpcChoice(randomValue);
         
-        RpsPlay.Npc.State = randomValue;
-        uiManager.npcText.text = uiManager.FindHand(randomValue);
-
         var result = RpsPlay.CheckResult();
         
         RpsPlay.ScoreUpdate(result);
@@ -33,12 +31,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Count(int count)
     {
-        for (var i = count; i > 0; i--)
+        yield return new WaitForSeconds(0.5f);
+        for (var i = 0; i < 3; i++)
         {
-            uiManager.resultText.text = i.ToString();
-            yield return new WaitForSeconds(i * 1.0f);
+            uiManager.resultText.text = TextData.NpcString[i];
+            yield return new WaitForSeconds(1.0f);
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
     }
     
     IEnumerator Stop()
@@ -48,11 +47,6 @@ public class GameManager : MonoBehaviour
         yield return Count(3); //선택 시간
         
         uiManager.playerButtonCanvasOnOff(false); // 버튼 삭제
-
-        uiManager.resultText.text = TextData.NpcString;
-        
-        yield return new WaitForSeconds(1.0f); //결과 확인 시간
-        
         var tmp = OneTime(); // 한 게임 과정
         
         uiManager.SetResultText(tmp); // 결과 출력
@@ -86,10 +80,12 @@ public class GameManager : MonoBehaviour
             Player = new CharacterInfo()
         };
         
-        RpsPlay.Player.Scores = dataManager.JsonLoad();
-
+        // uiManager.npcImage = GetComponent<RawImage>();
+        // uiManager.playerImage = GetComponent<RawImage>();
         
-        Debug.Log(string.Join(", ", RpsPlay.Player.Scores.userScores));
+        RpsPlay.Player.Scores = dataManager.JsonLoad();
+        
+        // Debug.Log(string.Join(", ", RpsPlay.Player.Scores.userScores));
         uiManager.UpdateRecordText(RpsPlay.Player.Scores);
         uiManager.SetStartCanvas();
        
