@@ -1,13 +1,14 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
 
 [System.Serializable]
-public class CharacterInfo
+public class CharacterInfo : UserData
 {
     private Enums.RpsState _state = Enums.RpsState.WrongAnswer;
-    private UserData _scores;
+    private UserData _scores = new();
 
     public Enums.RpsState State
     {
@@ -18,7 +19,12 @@ public class CharacterInfo
     public UserData Scores
     {
         get => _scores;
-        set => _scores = value;
+        set{
+            if (value != null)
+            {
+                Array.Copy(value.userScores, _scores.userScores, _scores.userScores.Length);
+            }
+        }
     }
     
 }

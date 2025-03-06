@@ -27,21 +27,21 @@ public class RpsPlay
         }
     }
     
-    public void ScoreSave(Enums.Score score)
+    public void ScoreUpdate(Enums.Score score)
     {
         switch (score)
         {
             case Enums.Score.Win:
-                Player.Scores.Add(Enums.Score.Win);
-                Npc.Scores.Add(Enums.Score.Loss);
+                Player.Scores[(int)Enums.Score.Win]++;
+                // Npc.Scores[(int)Enums.Score.Loss]++;
                 break;
             case Enums.Score.Loss:
-                Player.Scores.Add(Enums.Score.Loss);
-                Npc.Scores.Add(Enums.Score.Win);
+                Player.Scores[(int)Enums.Score.Loss]++;
+                // Npc.Scores[(int)Enums.Score.Win]++;
                 break;
             case Enums.Score.Draw:
-                Player.Scores.Add(Enums.Score.Draw);
-                Npc.Scores.Add(Enums.Score.Draw);
+                Player.Scores[(int)Enums.Score.Draw]++;
+                // Npc.Scores[(int)Enums.Score.Draw]++;
                 break;
             case Enums.Score.WrongAnswer:
                 break;

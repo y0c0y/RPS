@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public Text npcText;
     public Text playerText;
     public Text resultText;
+    public Text recordText;
     
     public Canvas playerButtonCanvas;
     public Canvas lobbyCanvas;
@@ -34,16 +35,23 @@ public class UIManager : MonoBehaviour
     public void OnClickPlayButton()
     {
         // Debug.Log("OnClickPlayButton");
+
+       
         gameManager.Play();
+    }
+
+    public void UpdateRecordText(UserData userData)
+    {
+        var tmpScore = userData.userScores;
+        recordText.text = $"Win : {tmpScore[0]} Loss : {tmpScore[1]}, Draw : {tmpScore[2]}";
+
     }
 
     public void OnClickQuitButton()
     {
         // Debug.Log("OnClickQuitButton");
-        Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        gameManager.Quit();
+        
     }
     
     public void OnClickRock()

@@ -26,34 +26,56 @@ public class GameManager : MonoBehaviour
 
         var result = RpsPlay.CheckResult();
         
-        // UserData tmp = RpsPlay.ScoreUpdate(result, RpsPlay.Player.Scores);
-        // dataManager.JsonSave(tmp);
+        RpsPlay.ScoreUpdate(result);
         
         return RpsPlay.ScoreString(result);
+    }
+
+    IEnumerator Count(int count)
+    {
+        for (var i = count; i > 0; i--)
+        {
+            uiManager.resultText.text = i.ToString();
+            yield return new WaitForSeconds(i * 1.0f);
+        }
+        yield return new WaitForSeconds(1.0f);
     }
     
     IEnumerator Stop()
     {
-
-        uiManager.SetDuringGameCanvas();
-        for (var i = 3; i >= 0; i--)
-        {
-            uiManager.npcText.text = i.ToString();
-            yield return new WaitForSeconds(i * 1.0f);
-        }
+        uiManager.SetDuringGameCanvas(); //게임 화면 셋팅
         
-        uiManager.playerButtonCanvasOnOff(false);
-        yield return new WaitForSeconds(1.0f);
-        var tmp = OneTime();
-        uiManager.SetResultText(tmp);
-        yield return new WaitForSeconds(1.0f);
-        uiManager.SetStartCanvas();
+        yield return Count(3); //선택 시간
+        
+        uiManager.playerButtonCanvasOnOff(false); // 버튼 삭제
+
+        uiManager.resultText.text = TextData.NpcString;
+        
+        yield return new WaitForSeconds(1.0f); //결과 확인 시간
+        
+        var tmp = OneTime(); // 한 게임 과정
+        
+        uiManager.SetResultText(tmp); // 결과 출력
+        
+        yield return new WaitForSeconds(2.0f); //결과 확인 시간
+        
+        uiManager.SetStartCanvas(); // 다시 로비 화면
+        
+        uiManager.UpdateRecordText(RpsPlay.Player.Scores);
     }
 
     public void Play()
-    {
-        // RpsPlay.Player.Scores = dataManager.JsonLoad();
+    {   
         StartCoroutine(Stop());
+    }
+
+    public void Quit()
+    {
+        dataManager.JsonSave(RpsPlay.Player.Scores);
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
     
     void Start()
@@ -63,11 +85,14 @@ public class GameManager : MonoBehaviour
             Npc = new CharacterInfo(),
             Player = new CharacterInfo()
         };
+        
+        RpsPlay.Player.Scores = dataManager.JsonLoad();
 
+        
+        Debug.Log(string.Join(", ", RpsPlay.Player.Scores.userScores));
+        uiManager.UpdateRecordText(RpsPlay.Player.Scores);
         uiManager.SetStartCanvas();
        
         // Debug.Log(rpsPlay.player.State);
-        
-        
     }
 }

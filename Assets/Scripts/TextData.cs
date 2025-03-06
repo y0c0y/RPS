@@ -10,4 +10,7 @@ public class TextData
     public const string LoseString = "졌습니다.";
     public const string DrawString = "비겼습니다.";
     public const string WrongString = "잘못된 결과입니다";
+
+    public const string NpcString = "NPC가 고민중입나다.";
+
 }
