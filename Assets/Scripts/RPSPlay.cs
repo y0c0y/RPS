@@ -1,19 +1,12 @@
 using System;
-using UnityEngine;
-using UnityEngine.Serialization;
-using Random = System.Random;
 
 public class RpsPlay
 {
-    
     public CharacterInfo Player;
     public CharacterInfo Npc;
 
     public string ScoreString(Enums.Score score)
     {
-        // Debug.Log($"player : {player.State}");
-        // Debug.Log($"npc : {npc.State}");
-        
         switch (score)
         {
             case Enums.Score.Win:
@@ -67,6 +60,4 @@ public class RpsPlay
         }
 
     }
-    
-
 }
