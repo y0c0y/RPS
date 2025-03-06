@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Enums
 {
     public enum RpsState : int

@@ -1,7 +1,4 @@
-using System;
-using UnityEditor.U2D;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -9,23 +6,17 @@ public class UIManager : MonoBehaviour
     
     public GameManager gameManager;
     
-    public Text npcText;
-    public Text playerText;
     public Text resultText;
     public Text recordText;
     
     public Canvas playerButtonCanvas;
     public Canvas lobbyCanvas;
-    // public Canvas resultCanvas;
     public Canvas playTextCanvas;
     
     public Texture rockTexture;
     public Texture paperTexture;
     public Texture scissorsTexture;
     
-    public Transform npcTransform;
-    public Transform playerTransform;
-
     public RawImage npcImage;
     public RawImage playerImage;
 
@@ -57,8 +48,6 @@ public class UIManager : MonoBehaviour
                 image.texture = scissorsTexture;
                 break;
         }
-        
-        // Debug.Log(image.texture);
     }
 
     public string FindHand(Enums.RpsState state)
@@ -78,9 +67,6 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        // Debug.Log("OnClickPlayButton");
-
-       
         gameManager.Play();
     }
 
@@ -93,9 +79,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickQuitButton()
     {
-        // Debug.Log("OnClickQuitButton");
         gameManager.Quit();
-        
     }
     
     public void OnClickRock()
@@ -134,13 +118,9 @@ public class UIManager : MonoBehaviour
     public void playerButtonCanvasOnOff(bool isOn)
     {
         playerButtonCanvas.enabled = isOn;
-        // Debug.Log(playerButtonCanvas.enabled);
-
-        
     }
     public void lobbyCanvasOnOff(bool isOn)
     {
-        // Debug.Log(isOn);
         lobbyCanvas.enabled = isOn;
     }
     public void PlayTextCanvasOnOff(bool isOn)

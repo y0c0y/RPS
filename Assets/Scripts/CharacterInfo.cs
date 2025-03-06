@@ -1,10 +1,6 @@
 using System;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Serialization;
 
-[System.Serializable]
+[Serializable]
 public class CharacterInfo : UserData
 {
     private Enums.RpsState _state = Enums.RpsState.WrongAnswer;

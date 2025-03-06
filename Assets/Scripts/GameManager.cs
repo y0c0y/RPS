@@ -1,16 +1,9 @@
 using UnityEngine;
-using UnityEngine.Serialization;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine.Windows;
 using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     public DataManager dataManager;
     public UIManager uiManager;
     public RpsPlay RpsPlay;
@@ -80,15 +73,9 @@ public class GameManager : MonoBehaviour
             Player = new CharacterInfo()
         };
         
-        // uiManager.npcImage = GetComponent<RawImage>();
-        // uiManager.playerImage = GetComponent<RawImage>();
-        
         RpsPlay.Player.Scores = dataManager.JsonLoad();
         
-        // Debug.Log(string.Join(", ", RpsPlay.Player.Scores.userScores));
         uiManager.UpdateRecordText(RpsPlay.Player.Scores);
         uiManager.SetStartCanvas();
-       
-        // Debug.Log(rpsPlay.player.State);
     }
 }
