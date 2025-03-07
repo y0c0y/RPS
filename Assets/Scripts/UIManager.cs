@@ -52,12 +52,24 @@ public class UIManager : MonoBehaviour
         recordText.text = $"Win : {tmpScore[0]} Loss : {tmpScore[1]}, Draw : {tmpScore[2]}";
 
     }
+    
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnStateChanged -= Choice;
+        GameManager.Instance.OnScoreUpdated -= UpdateRecordText;
+        GameManager.Instance.OnGameStart -= SetDuringGameCanvas; 
+        GameManager.Instance.OnGameResult -= SetResultText;
+        GameManager.Instance.OnGameEnd -= SetStartCanvas;
+        GameManager.Instance.OnButtonChanged -= playerButtonCanvasOnOff;
+        GameManager.Instance.OnButtonChanged -= lobbyCanvasOnOff;
+    }
 
     public void OnClickQuitButton()
     {
-         GameManager.Instance.Quit();
+        OnDestroy();
+        GameManager.Instance.Quit();
     }
-    
+
     public void OnClickRock()
     {
         Choice( GameManager.Instance.RpsPlay.Player,Enums.RpsState.Rock);

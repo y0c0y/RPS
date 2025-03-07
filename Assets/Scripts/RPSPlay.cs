@@ -2,6 +2,8 @@ using System;
 
 public class RpsPlay
 {
+    public static RpsPlay Instance { get; private set; }
+    
     public CharacterInfo Player;
     public CharacterInfo Npc;
 
@@ -22,15 +24,12 @@ public class RpsPlay
         {
             case Enums.Score.Win:
                 Player.Scores[(int)Enums.Score.Win]++;
-                // Npc.Scores[(int)Enums.Score.Loss]++;
                 break;
             case Enums.Score.Loss:
                 Player.Scores[(int)Enums.Score.Loss]++;
-                // Npc.Scores[(int)Enums.Score.Win]++;
                 break;
             case Enums.Score.Draw:
                 Player.Scores[(int)Enums.Score.Draw]++;
-                // Npc.Scores[(int)Enums.Score.Draw]++;
                 break;
             case Enums.Score.WrongAnswer:
                 break;
