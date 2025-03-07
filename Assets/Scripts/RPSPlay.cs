@@ -5,19 +5,15 @@ public class RpsPlay
     public CharacterInfo Player;
     public CharacterInfo Npc;
 
-    public string ScoreString(Enums.Score score)
+    public static string ScoreString(Enums.Score score)
     {
-        switch (score)
+        return score switch
         {
-            case Enums.Score.Win:
-                return TextData.WinString;
-            case Enums.Score.Loss:
-                return TextData.LoseString;
-            case Enums.Score.Draw:
-                return TextData.DrawString;
-            default:
-                return TextData.WrongString;
-        }
+            Enums.Score.Win => TextData.WinString,
+            Enums.Score.Loss => TextData.LoseString,
+            Enums.Score.Draw => TextData.DrawString,
+            _ => TextData.WrongString
+        };
     }
     
     public void ScoreUpdate(Enums.Score score)
