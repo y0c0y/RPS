@@ -1,18 +1,18 @@
-public class Enums
+public abstract class Enums
 {
-    public enum RpsState : int
+    public enum RpsState
     {
         Rock,
         Paper,
         Scissors,
-        WrongAnswer,
+        WrongAnswer
     }
     
-    public enum Score : int
+    public enum Score
     {
         Win,
         Loss,
         Draw,
-        WrongAnswer,
+        WrongAnswer
     }
 }

@@ -1,10 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
-using Unity.VisualScripting;
-using UnityEditor.Overlays;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class UserData
@@ -31,14 +28,14 @@ public class DataManager : MonoBehaviour
     {
         var data = new UserData
         {
-            userScores = new int[] { 0, 0, 0 }
+            userScores = new [] { 0, 0, 0 }
         };
         
         if (File.Exists(_path))
         {
-            FileStream fileStream = new FileStream(_path, FileMode.Open); 
-            StreamReader reader = new StreamReader(fileStream);
-            string jsonData = reader.ReadToEnd();
+            var fileStream = new FileStream(_path, FileMode.Open); 
+            var reader = new StreamReader(fileStream);
+            var jsonData = reader.ReadToEnd();
             fileStream.Close();
             data= JsonUtility.FromJson<UserData>(jsonData);
             
@@ -55,10 +52,10 @@ public class DataManager : MonoBehaviour
     {
         if (userData == null) throw new ArgumentNullException(nameof(userData));
         
-        FileStream fileStream = new FileStream(_path, FileMode.Create);
-        
+        var fileStream = new FileStream(_path, FileMode.Create);
         var jsonData = JsonUtility.ToJson(userData);
-        byte[] data = Encoding.UTF8.GetBytes(jsonData);
+        var data = Encoding.UTF8.GetBytes(jsonData);
+        
         fileStream.Write(data, 0, jsonData.Length);
     }
 }

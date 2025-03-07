@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     public RawImage playerImage;
 
 
-    public void ResetImage()
+    private void ResetImage()
     {
         npcImage.texture = null;
         playerImage.texture = null;
@@ -29,40 +29,20 @@ public class UIManager : MonoBehaviour
         npcImage.enabled = false;
         playerImage.enabled = false;
     }
-    
-    
-    public void SetImage(RawImage image, Enums.RpsState state)
+
+
+    private void SetImage(RawImage image, Enums.RpsState state)
     {
         if (!image) { image = GetComponent<RawImage>(); }
         if(!image.enabled) { image.enabled = true; }
 
-        switch (state)
+        image.texture = state switch
         {
-            case Enums.RpsState.Rock:
-                image.texture = rockTexture;
-                break;
-            case Enums.RpsState.Paper:
-                image.texture = paperTexture;
-                break;
-            case Enums.RpsState.Scissors:
-                image.texture = scissorsTexture;
-                break;
-        }
-    }
-
-    public string FindHand(Enums.RpsState state)
-    {
-        switch (state)
-        {
-            case Enums.RpsState.Rock:
-                return TextData.Rock;
-            case Enums.RpsState.Paper:
-                return TextData.Paper;
-            case Enums.RpsState.Scissors:
-                return TextData.Scissors;
-            default:
-                return TextData.WrongString;
-        }
+            Enums.RpsState.Rock => rockTexture,
+            Enums.RpsState.Paper => paperTexture,
+            Enums.RpsState.Scissors => scissorsTexture,
+            _ => image.texture
+        };
     }
 
     public void OnClickPlayButton()
@@ -119,11 +99,13 @@ public class UIManager : MonoBehaviour
     {
         playerButtonCanvas.enabled = isOn;
     }
-    public void lobbyCanvasOnOff(bool isOn)
+
+    private void lobbyCanvasOnOff(bool isOn)
     {
         lobbyCanvas.enabled = isOn;
     }
-    public void PlayTextCanvasOnOff(bool isOn)
+
+    private void PlayTextCanvasOnOff(bool isOn)
     {
         resultText.text = "";
         playTextCanvas.enabled = isOn;

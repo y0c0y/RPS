@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         return RpsPlay.ScoreString(result);
     }
 
-    IEnumerator Count(int count)
+    private IEnumerator Count()
     {
         yield return new WaitForSeconds(0.5f);
         for (var i = 0; i < 3; i++)
@@ -32,12 +32,12 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
     }
-    
-    IEnumerator Stop()
+
+    private IEnumerator Stop()
     {
         uiManager.SetDuringGameCanvas(); //게임 화면 셋팅
         
-        yield return Count(3); //선택 시간
+        yield return Count(); //선택 시간
         
         uiManager.playerButtonCanvasOnOff(false); // 버튼 삭제
         var tmp = OneTime(); // 한 게임 과정
@@ -64,17 +64,18 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-    
-    void Start()
+
+    private void Start()
     {
         RpsPlay = new RpsPlay
         {
             Npc = new CharacterInfo(),
-            Player = new CharacterInfo()
+            Player = new CharacterInfo
+            {
+                Scores = dataManager.JsonLoad()
+            }
         };
-        
-        RpsPlay.Player.Scores = dataManager.JsonLoad();
-        
+
         uiManager.UpdateRecordText(RpsPlay.Player.Scores);
         uiManager.SetStartCanvas();
     }

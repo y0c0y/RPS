@@ -1,10 +1,5 @@
-public class TextData
+public abstract class TextData
 {
-    /*가위 바위 보 Text*/
-    public const string Rock = "Rock";
-    public const string Paper = "Paper";
-    public const string Scissors = "Scissors";
-
     /* 승리 관련 Text*/
     public const string WinString = "이겼습니다";
     public const string LoseString = "졌습니다.";
