@@ -1389,7 +1389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 334928313}
-  uiManager: {fileID: 1351734284}
 --- !u!1 &1118939892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,8 +2149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1080056424}
-  npcText: {fileID: 443139935}
-  playerText: {fileID: 2106479031}
   resultText: {fileID: 1495659147}
   recordText: {fileID: 1569395464}
   playerButtonCanvas: {fileID: 1739879377}
@@ -2160,8 +2157,6 @@ MonoBehaviour:
   rockTexture: {fileID: 2800000, guid: cbe117b1a1d2f7a47b41ad855c5fac49, type: 3}
   paperTexture: {fileID: 2800000, guid: 56d54c39bf4be47418eb838501463369, type: 3}
   scissorsTexture: {fileID: 2800000, guid: 202f450fcbe7df447b4c3508786611dd, type: 3}
-  npcTransform: {fileID: 485212309}
-  playerTransform: {fileID: 1319075365}
   npcImage: {fileID: 90046664}
   playerImage: {fileID: 1754070183}
 --- !u!1 &1452092472

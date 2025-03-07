@@ -17,6 +17,8 @@ public class UserData
 
 public class DataManager : MonoBehaviour
 {
+    public static DataManager Instance { get; private set; }
+    
     private string _path;
 
     private void Start()
